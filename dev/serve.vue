@@ -1,10 +1,22 @@
+<!--
+ * @Author: 时不待我 790002517@qq.com
+ * @Date: 2023-04-12 09:24:15
+ * @LastEditors: 时不待我 790002517@qq.com
+ * @LastEditTime: 2023-04-13 13:28:12
+-->
 <template>
   <div id="app">
     <div
+      class="contentgrid"
       @touchstart="touchstartEvents($event)"
       @touchend="touchendEvents($event)"
     >
-      <contentgrid ref="contentgrid" :dataArray="datatext" :loading="true" :wheelEvents="false">
+      <contentgrid
+        ref="contentgrid"
+        :dataArray="datatext"
+        :loading="true"
+        :wheelEvents="true"
+      >
         <div slot="slidetitle" slot-scope="{ htmlText }">
           <div class="meta">物种</div>
           <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
@@ -68,5 +80,21 @@ export default Vue.extend({
   },
 });
 </script>
+<style>
+body{
+  margin: 0;
+  padding: 0;
+}
+#app{
+  margin: 0;
+  padding: 0;
+}
+.contentgrid {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+</style>
 
 

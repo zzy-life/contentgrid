@@ -10,13 +10,13 @@
 </div>
 
 
-This plugin utilizes WebGL and three.js technology to achieve impressive transition effects, optimized for mobile devices. It helps to add visually appealing transition effects to your website or application, enhancing the user experience.
+This plugin uses WebGL and three.js technology to achieve impressive transition effects that are mobile-friendly. It can help you add beautiful transition effects to your website or application to enhance the user experience.
 
-Only tested in vue2 for now
+Currently only tested in vue2.
 
 ![GIF2023-4-13-10-50-25](docs/GIF2023-4-13-10-50-25.gif)
 
-However, it should be noted that since this plugin utilizes three.js technology, it will increase the size of your application. If your application is very sensitive to file size, use this plugin with caution. :warning:
+However, it should be noted that since the plugin uses three.js technology, it will increase the size of your application. If your application is very focused on file size, use this plugin with caution. :warning:
 
 ## Installation :inbox_tray:
 
@@ -34,32 +34,73 @@ Using yarn:
 yarn add contentgrid
 ```
 
+
+
+## Dependencies :heavy_check_mark:
+
+It is recommended to use the specified version, and other versions have not been tested.
+
+gsap animation library
+
+```shell
+npm i gsap@1.20.4  
+```
+
+imagesloaded image loading library
+
+```shell
+npm i imagesloaded@5.0.0
+```
+
+three front-end 3D library
+
+```shell
+npm i three@0.105.0
+```
+
+
+
 ## Usage :rocket:
 
 Import and initialize the plugin in your application:
 
-```js
-import Contentgrid from "contentgrid";
-```
+
 
 ```vue
-<contentgrid ref="contentgrid" :dataArray="datatext" :loading="true" :wheelEvents="false">
+ <div id="app">
+    <div
+      class="contentgrid"
+      @touchstart="touchstartEvents($event)"
+      @touchend="touchendEvents($event)"
+    >
+      <contentgrid
+        ref="contentgrid"
+        :dataArray="datatext"
+        :loading="true"
+        :wheelEvents="true"
+      >
         <div slot="slidetitle" slot-scope="{ htmlText }">
-          <div class="meta">Species</div>
+          <div class="meta">物种</div>
           <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
         </div>
         <div slot="slidestatus" slot-scope="{ htmlText }">
-          <div class="meta">Conservation Status</div>
+          <div class="meta">保护现状</div>
           <div id="slide-status" ref="slidestatus">
             {{ htmlText.StatusName }}
           </div>
         </div>
       </contentgrid>
-
+    </div>
+  </div>
 ```
 
 ```vue
- data() {
+import Contentgrid from "contentgrid"; 
+
+components: {
+    Contentgrid,
+  },
+data() {
     return {
       datatext: [
         {
@@ -89,32 +130,7 @@ import Contentgrid from "contentgrid";
       ],
     };
   },
-```
-
-To add touch swipe support to the scrolling plugin:
-
-```vue
- <div
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
-    >
-      <contentgrid ref="contentgrid" :dataArray="datatext" :loading="true" :wheelEvents="false">
-        <div slot="slidetitle" slot-scope="{ htmlText }">
-          <div class="meta">Species</div>
-          <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
-        </div>
-        <div slot="slidestatus" slot-scope="{ htmlText }">
-          <div class="meta">Conservation Status</div>
-          <div id="slide-status" ref="slidestatus">
-            {{ htmlText.StatusName }}
-          </div>
-        </div>
-      </contentgrid>
-    </div>
-```
-
-```vue
- methods: {
+methods: {
     touchstartEvents(event) {
       this.$refs.contentgrid.touchstartEvents(event);
     },
@@ -122,7 +138,27 @@ To add touch swipe support to the scrolling plugin:
       this.$refs.contentgrid.touchendEvents(event);
     },
   },
+});
 ```
+
+```css
+body{
+  margin: 0;
+  padding: 0;
+}
+#app{
+  margin: 0;
+  padding: 0;
+}
+.contentgrid {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+```
+
+
 
 ## Options :gear:
 

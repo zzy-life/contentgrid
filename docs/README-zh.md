@@ -28,16 +28,49 @@ yarn add contentgrid
 
 
 
+## 依赖:heavy_check_mark:
+
+推荐使用指定版本，其他版本未做测试
+
+gsap动画库
+
+```shell
+npm i gsap@1.20.4  
+```
+
+imagesloaded图片加载完成库
+
+```shell
+npm i imagesloaded@5.0.0
+```
+
+three前端3D库
+
+```shell
+npm i three@0.105.0
+```
+
+
+
 ## 使用 :rocket:
 
 在您的应用程序中导入插件并初始化它：
 
-```js
-import Contentgrid from "contentgrid";
-```
+
 
 ```vue
- <contentgrid ref="contentgrid" :dataArray="datatext" :loading="true" :wheelEvents="false">
+ <div id="app">
+    <div
+      class="contentgrid"
+      @touchstart="touchstartEvents($event)"
+      @touchend="touchendEvents($event)"
+    >
+      <contentgrid
+        ref="contentgrid"
+        :dataArray="datatext"
+        :loading="true"
+        :wheelEvents="true"
+      >
         <div slot="slidetitle" slot-scope="{ htmlText }">
           <div class="meta">物种</div>
           <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
@@ -49,10 +82,17 @@ import Contentgrid from "contentgrid";
           </div>
         </div>
       </contentgrid>
+    </div>
+  </div>
 ```
 
-```js
- data() {
+```vue
+import Contentgrid from "contentgrid"; 
+
+components: {
+    Contentgrid,
+  },
+data() {
     return {
       datatext: [
         {
@@ -82,32 +122,7 @@ import Contentgrid from "contentgrid";
       ],
     };
   },
-```
-
-如果要为滚动插件添加触摸滑动支持
-
-```vue
- <div
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
-    >
-      <contentgrid ref="contentgrid" :dataArray="datatext" :loading="true" :wheelEvents="false">
-        <div slot="slidetitle" slot-scope="{ htmlText }">
-          <div class="meta">物种</div>
-          <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
-        </div>
-        <div slot="slidestatus" slot-scope="{ htmlText }">
-          <div class="meta">保护现状</div>
-          <div id="slide-status" ref="slidestatus">
-            {{ htmlText.StatusName }}
-          </div>
-        </div>
-      </contentgrid>
-    </div>
-```
-
-```vue
- methods: {
+methods: {
     touchstartEvents(event) {
       this.$refs.contentgrid.touchstartEvents(event);
     },
@@ -115,6 +130,24 @@ import Contentgrid from "contentgrid";
       this.$refs.contentgrid.touchendEvents(event);
     },
   },
+});
+```
+
+```css
+body{
+  margin: 0;
+  padding: 0;
+}
+#app{
+  margin: 0;
+  padding: 0;
+}
+.contentgrid {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
 ```
 
 
