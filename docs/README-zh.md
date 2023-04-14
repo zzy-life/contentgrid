@@ -62,8 +62,6 @@ npm i three@0.105.0
  <div id="app">
     <div
       class="contentgrid"
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
     >
       <Contentgrid
         ref="contentgrid"
@@ -151,8 +149,6 @@ body{
  <div id="app">
     <div
       class="contentgrid"
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
     >
      <Carousel
         ref="contentgrid"

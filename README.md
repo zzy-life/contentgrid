@@ -72,8 +72,6 @@ Import and initialize the plugin in your application:
  <div id="app">
     <div
       class="contentgrid"
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
     >
       <Contentgrid
         ref="contentgrid"
@@ -161,8 +159,6 @@ body{
  <div id="app">
     <div
       class="contentgrid"
-      @touchstart="touchstartEvents($event)"
-      @touchend="touchendEvents($event)"
     >
      <Carousel
         ref="contentgrid"
