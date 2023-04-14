@@ -66,6 +66,8 @@ Import and initialize the plugin in your application:
 
 
 
+### Contentgrid
+
 ```vue
  <div id="app">
     <div
@@ -73,11 +75,12 @@ Import and initialize the plugin in your application:
       @touchstart="touchstartEvents($event)"
       @touchend="touchendEvents($event)"
     >
-      <contentgrid
+      <Contentgrid
         ref="contentgrid"
         :dataArray="datatext"
         :loading="true"
-        :wheelEvents="true"
+        :shouldPause="true"
+        @change="change"
       >
         <div slot="slidetitle" slot-scope="{ htmlText }">
           <div class="meta">物种</div>
@@ -89,13 +92,13 @@ Import and initialize the plugin in your application:
             {{ htmlText.StatusName }}
           </div>
         </div>
-      </contentgrid>
+      </Contentgrid>
     </div>
   </div>
 ```
 
 ```vue
-import Contentgrid from "contentgrid"; 
+import {Contentgrid} from "contentgrid"; 
 
 components: {
     Contentgrid,
@@ -105,38 +108,30 @@ data() {
       datatext: [
         {
           id: 0,
-          TitleName: "Far Eastern leopard",
-          StatusName: "Critically endangered",
+          TitleName: "远东豹",
+          StatusName: "极度濒危",
           image: require("../images/leopard2.jpg"),
         },
         {
           id: 1,
-          TitleName: "Asian lion",
-          StatusName: "Endangered",
+          TitleName: "亚洲狮",
+          StatusName: "濒危",
           image: require("../images/lion2.jpg"),
         },
         {
           id: 2,
-          TitleName: "Siberian tiger",
-          StatusName: "Endangered",
+          TitleName: "西伯利亚虎",
+          StatusName: "濒危",
           image: require("../images/tiger2.jpg"),
         },
         {
           id: 3,
-          TitleName: "Brown bear",
-          StatusName: "Least concern",
+          TitleName: "棕熊",
+          StatusName: "无危",
           image: require("../images/bear2.jpg"),
         },
       ],
     };
-  },
-methods: {
-    touchstartEvents(event) {
-      this.$refs.contentgrid.touchstartEvents(event);
-    },
-    touchendEvents(event) {
-      this.$refs.contentgrid.touchendEvents(event);
-    },
   },
 });
 ```
@@ -160,11 +155,158 @@ body{
 
 
 
+### Carousel
+
+```vue
+ <div id="app">
+    <div
+      class="contentgrid"
+      @touchstart="touchstartEvents($event)"
+      @touchend="touchendEvents($event)"
+    >
+     <Carousel
+        ref="contentgrid"
+        :dataArray="datatext"
+        :loading="true"
+        :shouldPause="true"
+        @change="change"
+      >
+        <div slot="slidetitle" slot-scope="{ htmlText }">
+          <div class="meta">物种</div>
+          <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
+        </div>
+        <div slot="slidestatus" slot-scope="{ htmlText }">
+          <div class="meta">保护现状</div>
+          <div id="slide-status" ref="slidestatus">
+            {{ htmlText.StatusName }}
+          </div>
+        </div>
+      </Carousel>
+    </div>
+  </div>
+```
+
+```vue
+import {Carousel} from "contentgrid"; 
+
+components: {
+    Carousel,
+  },
+data() {
+    return {
+      datatext: [
+        {
+          id: 0,
+          TitleName: "远东豹",
+          StatusName: "极度濒危",
+          image: require("../images/leopard2.jpg"),
+        },
+        {
+          id: 1,
+          TitleName: "亚洲狮",
+          StatusName: "濒危",
+          image: require("../images/lion2.jpg"),
+        },
+        {
+          id: 2,
+          TitleName: "西伯利亚虎",
+          StatusName: "濒危",
+          image: require("../images/tiger2.jpg"),
+        },
+        {
+          id: 3,
+          TitleName: "棕熊",
+          StatusName: "无危",
+          image: require("../images/bear2.jpg"),
+        },
+      ],
+    };
+  },
+});
+```
+
+```css
+body{
+  margin: 0;
+  padding: 0;
+}
+#app{
+  margin: 0;
+  padding: 0;
+}
+.contentgrid {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+```
+
+
 ## Options :gear:
 
 Here are the available options for the plugin:
 
-- **dataArray** - The array to be rendered.
-- **loading** - Whether to display a loading animation. Default is `true`.
-- **pagination** - Whether to display the right-side pagination buttons. Default is `true`.
-- **wheelEvents** - Whether to enable mouse wheel events. Default is `true`.
+| Parameter   | Description                           | Type    | Optional Values | Default |
+| :---------- | :------------------------------------ | :------ | :-------------- | :------ |
+| dataArray   | Array to be rendered                  | array   | —               | —       |
+| loading     | Whether to display loading animation  | boolean | —               | true    |
+| pagination  | Whether to display right side buttons | boolean | —               | true    |
+| wheelEvents | Whether to enable mouse wheel events  | boolean | —               | true    |
+| intensity   | animation intensity                   | Number  | 0.1-0.9         | 0.4     |
+
+## Events
+
+| Event Name | Description                     | Callback Parameters                 |
+| :--------- | :------------------------------ | :---------------------------------- |
+| change     | Triggered when switching slides | Index of the currently active slide |
+
+## Other
+
+### Not using slots
+
+The slidetitle and slidestatus slots have limited customization options.
+
+You can define your own text, for example:
+
+```vue
+<div>
+    <div class="meta">Species</div>
+    <h2 id="slide-title" ref="slidetitle">{{text}}</h2>
+</div>
+```
+
+Import the dependency and use it in the change callback function:
+
+```vue
+import { TweenLite } from "gsap";
+methods: {
+    change(index) {
+      //给按钮生成动画
+      let slideTitleEl = this.$refs.slidetitle;
+      if (slideTitleEl) {
+        TweenLite.fromTo(
+          slideTitleEl,
+          0.5,
+          {
+            autoAlpha: 1,
+            y: 0,
+          },
+          {
+            autoAlpha: 0,
+            y: 20,
+            ease: "Expo.easeIn",
+            onComplete: () => {
+              this.text = "美洲豹";
+
+              TweenLite.to(slideTitleEl, 0.5, {
+                autoAlpha: 1,
+                y: 0,
+              });
+            },
+          }
+        );
+      }
+    },
+  },
+```

@@ -56,7 +56,7 @@ npm i three@0.105.0
 
 在您的应用程序中导入插件并初始化它：
 
-
+### 滚动内容网格
 
 ```vue
  <div id="app">
@@ -65,11 +65,12 @@ npm i three@0.105.0
       @touchstart="touchstartEvents($event)"
       @touchend="touchendEvents($event)"
     >
-      <contentgrid
+      <Contentgrid
         ref="contentgrid"
         :dataArray="datatext"
         :loading="true"
-        :wheelEvents="true"
+        :shouldPause="true"
+        @change="change"
       >
         <div slot="slidetitle" slot-scope="{ htmlText }">
           <div class="meta">物种</div>
@@ -81,13 +82,13 @@ npm i three@0.105.0
             {{ htmlText.StatusName }}
           </div>
         </div>
-      </contentgrid>
+      </Contentgrid>
     </div>
   </div>
 ```
 
 ```vue
-import Contentgrid from "contentgrid"; 
+import {Contentgrid} from "contentgrid"; 
 
 components: {
     Contentgrid,
@@ -122,13 +123,94 @@ data() {
       ],
     };
   },
-methods: {
-    touchstartEvents(event) {
-      this.$refs.contentgrid.touchstartEvents(event);
-    },
-    touchendEvents(event) {
-      this.$refs.contentgrid.touchendEvents(event);
-    },
+});
+```
+
+```css
+body{
+  margin: 0;
+  padding: 0;
+}
+#app{
+  margin: 0;
+  padding: 0;
+}
+.contentgrid {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+```
+
+
+
+### 轮播图
+
+```vue
+ <div id="app">
+    <div
+      class="contentgrid"
+      @touchstart="touchstartEvents($event)"
+      @touchend="touchendEvents($event)"
+    >
+     <Carousel
+        ref="contentgrid"
+        :dataArray="datatext"
+        :loading="true"
+        :shouldPause="true"
+        @change="change"
+      >
+        <div slot="slidetitle" slot-scope="{ htmlText }">
+          <div class="meta">物种</div>
+          <h2 id="slide-title" ref="slidetitle">{{ htmlText.TitleName }}</h2>
+        </div>
+        <div slot="slidestatus" slot-scope="{ htmlText }">
+          <div class="meta">保护现状</div>
+          <div id="slide-status" ref="slidestatus">
+            {{ htmlText.StatusName }}
+          </div>
+        </div>
+      </Carousel>
+    </div>
+  </div>
+```
+
+```vue
+import {Carousel} from "contentgrid"; 
+
+components: {
+    Carousel,
+  },
+data() {
+    return {
+      datatext: [
+        {
+          id: 0,
+          TitleName: "远东豹",
+          StatusName: "极度濒危",
+          image: require("../images/leopard2.jpg"),
+        },
+        {
+          id: 1,
+          TitleName: "亚洲狮",
+          StatusName: "濒危",
+          image: require("../images/lion2.jpg"),
+        },
+        {
+          id: 2,
+          TitleName: "西伯利亚虎",
+          StatusName: "濒危",
+          image: require("../images/tiger2.jpg"),
+        },
+        {
+          id: 3,
+          TitleName: "棕熊",
+          StatusName: "无危",
+          image: require("../images/bear2.jpg"),
+        },
+      ],
+    };
   },
 });
 ```
@@ -156,8 +238,71 @@ body{
 
 以下是插件的可用选项：
 
-- **dataArray** - 渲染的数组。
-- **loading** - 是否需要加载动画。默认为 `true`。
-- **loading** - 是否需要加载动画。默认为 `true`。
-- **pagination** - 是否显示右侧按钮。默认为 `true`。
-- **wheelEvents** - 是否开启鼠标滚轮事件。默认为 `true`。
+| 参数        | 说明                 | 类型    | 可选值 | 默认值 |
+| :---------- | :------------------- | :------ | :----- | :----- |
+| dataArray   | 渲染的数组           | array   | —      | —      |
+| loading     | 是否需要加载动画     | boolean | —      | true   |
+| pagination  | 是否显示右侧按钮     | boolean | —      | true   |
+| wheelEvents | 是否开启鼠标滚轮事件 | boolean | —      | true   |
+| intensity   | 动画强度                 | Number  | 0.1-0.9         | 0.4     |
+
+
+
+## 事件
+
+| 事件名称 | 说明             | 回调参数               |
+| :------- | :--------------- | :--------------------- |
+| change   | 幻灯片切换时触发 | 目前激活的幻灯片的索引 |
+
+
+
+## 其他
+
+### 不使用插槽
+
+slidetitle和slidestatus插槽自定义内容有限
+
+可自行定义文字，案例：
+
+```vue
+<div >
+    <div class="meta">物种</div>
+    <h2 id="slide-title" ref="slidetitle">{{text}}</h2>
+</div>
+```
+
+引入依赖然后在change回调函数中使用：
+
+```vue
+import { TweenLite } from "gsap";
+methods: {
+    change(index) {
+      //给按钮生成动画
+      let slideTitleEl = this.$refs.slidetitle;
+      if (slideTitleEl) {
+        TweenLite.fromTo(
+          slideTitleEl,
+          0.5,
+          {
+            autoAlpha: 1,
+            y: 0,
+          },
+          {
+            autoAlpha: 0,
+            y: 20,
+            ease: "Expo.easeIn",
+            onComplete: () => {
+              this.text = "美洲豹";
+
+              TweenLite.to(slideTitleEl, 0.5, {
+                autoAlpha: 1,
+                y: 0,
+              });
+            },
+          }
+        );
+      }
+    },
+  },
+```
+
