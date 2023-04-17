@@ -2,7 +2,7 @@
  * @Author: 时不待我 790002517@qq.com
  * @Date: 2023-04-12 09:24:15
  * @LastEditors: 时不待我 790002517@qq.com
- * @LastEditTime: 2023-04-14 17:34:22
+ * @LastEditTime: 2023-04-14 18:45:42
 -->
 <template>
   <div id="app">
@@ -109,6 +109,9 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
+}
+.contentgrid  .slider-content h2{
+  font-size: 2.5rem;
 }
 </style>
 
