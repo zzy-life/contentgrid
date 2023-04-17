@@ -8,7 +8,7 @@
     "gradient effect",
     "Content animation effects"
   ],
-  "license": "MIT",
+  "license": "GPL",
   "main": "dist/contentgrid.ssr.js",
   "browser": "dist/contentgrid.esm.js",
   "module": "dist/contentgrid.esm.js",
