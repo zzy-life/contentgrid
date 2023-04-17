@@ -14,6 +14,10 @@ This plugin uses WebGL and three.js technology to achieve impressive transition 
 
 Currently only tested in vue2.
 
+[Demo](https://zzy-life.github.io/contentgrid/)
+
+
+
 ![GIF2023-4-13-10-50-25](docs/GIF2023-4-13-10-50-25.gif)
 
 However, it should be noted that since the plugin uses three.js technology, it will increase the size of your application. If your application is very focused on file size, use this plugin with caution. :warning:
