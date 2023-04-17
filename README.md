@@ -255,10 +255,23 @@ body{
 | :---------- | :------------------- | :------ | :----- | :----- |
 | dataArray   | 渲染的数组           | array   | —      | —      |
 | loading     | 是否需要加载动画     | boolean | —      | true   |
-| pagination  | 是否显示右侧按钮     | boolean | —      | true   |
-| wheelEvents | 是否开启鼠标滚轮事件 | boolean | —      | true   |
+| pagination  | 是否显示切换按钮   | boolean | —      | true   |
 | intensity   | 动画强度                 | Number  | 0.1-0.9         | 0.4     |
 
+Contentgrid组件的额外属性
+
+| 参数        | 说明                          | 类型    | 可选值 | 默认值 |
+| :---------- | :---------------------------- | :------ | :----- | :----- |
+| wheelEvents | 是否开启鼠标滚轮/触摸滑动事件 | boolean | —      | true   |
+
+
+Carousel组件的额外属性
+
+| 参数        | 说明               | 类型    | 可选值 | 默认值 |
+| :---------- | :----------------- | :------ | :----- | :----- |
+| autoplay    | 是否自动切换       | Boolean | —      | true   |
+| shouldPause | 是否鼠标移上去暂停 | Boolean | —      | false  |
+| interval    | 自动切换时间间隔   | Number  | —      | 3000   |
 
 
 ## 事件

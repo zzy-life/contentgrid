@@ -239,13 +239,28 @@ body{
 
 Here are the available options for the plugin:
 
-| Parameter   | Description                           | Type    | Optional Values | Default |
-| :---------- | :------------------------------------ | :------ | :-------------- | :------ |
-| dataArray   | Array to be rendered                  | array   | —               | —       |
-| loading     | Whether to display loading animation  | boolean | —               | true    |
-| pagination  | Whether to display right side buttons | boolean | —               | true    |
-| wheelEvents | Whether to enable mouse wheel events  | boolean | —               | true    |
-| intensity   | animation intensity                   | Number  | 0.1-0.9         | 0.4     |
+| Parameter  | Description                       | Type    | Values  | Default |
+| :--------- | :-------------------------------- | :------ | :------ | :------ |
+| dataArray  | Array to be rendered              | array   | —       | —       |
+| loading    | Whether to show loading animation | boolean | —       | true    |
+| pagination | Whether to show switching buttons | boolean | —       | true    |
+| intensity  | Animation intensity               | Number  | 0.1-0.9 | 0.4     |
+
+Additional properties for Contentgrid plugin:
+
+| Parameter   | Description                                      | Type    | Values | Default |
+| :---------- | :----------------------------------------------- | :------ | :----- | :------ |
+| wheelEvents | Whether to enable mouse wheel/touch swipe events | boolean | —      | true    |
+
+Additional properties for Carousel plugin:
+
+| Parameter   | Description                      | Type    | Values | Default |
+| :---------- | :------------------------------- | :------ | :----- | :------ |
+| autoplay    | Whether to auto-switch slides    | Boolean | —      | true    |
+| shouldPause | Whether to pause on mouse hover  | Boolean | —      | false   |
+| interval    | Time interval for auto-switching | Number  | —      | 3000    |
+
+
 
 ## Events
 
