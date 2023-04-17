@@ -1,62 +1,67 @@
-# WebGL Transition Effect Plugin :sparkles:
+# WebGL 过渡效果插件 :sparkles:
 
 <div align="center">
 <h3>
   Translation
 </h3>
 <p align="center">
-  <a href="./docs/README-zh.md">中文</a>
+  <a href="./docs/README-en.md">English</a>
 </p>
 </div>
 
 
-This plugin uses WebGL and three.js technology to achieve impressive transition effects that are mobile-friendly. It can help you add beautiful transition effects to your website or application to enhance the user experience.
 
-Currently only tested in vue2.
+这个插件使用 WebGL 和 three.js 技术来实现令人印象深刻的过渡效果，适配移动端。它可以帮助你为你的网站或应用程序添加美观的过渡效果，以增强用户体验。
+
+目前仅在vue2中测试
+
+
 
 [Demo](https://zzy-life.github.io/contentgrid/)
 
 
 
-![GIF2023-4-13-10-50-25](docs/GIF2023-4-13-10-50-25.gif)
+![GIF2023-4-13-10-50-25](image/GIF2023-4-13-10-50-25.gif)
 
-However, it should be noted that since the plugin uses three.js technology, it will increase the size of your application. If your application is very focused on file size, use this plugin with caution. :warning:
+然而，需要注意的是，由于该插件使用了 three.js 技术，因此它将增加您应用程序的包大小。如果您的应用程序非常注重文件大小，请谨慎使用此插件。 :warning:
 
-## Installation :inbox_tray:
 
-You can install this plugin using npm or yarn.
 
-Using npm:
+## 安装:inbox_tray:
 
-```shell
+您可以使用 npm 或 yarn 进行安装。
+
+使用 npm：
+
+```
 npm i contentgrid --save
 ```
 
-Using yarn:
+使用 yarn：
 
-```shell
+```
 yarn add contentgrid
 ```
 
 
 
-## Dependencies :heavy_check_mark:
+## 依赖:heavy_check_mark:
 
-It is recommended to use the specified version, and other versions have not been tested.
+推荐使用指定版本，其他版本未做测试
 
-gsap animation library
+gsap动画库
 
 ```shell
 npm i gsap@1.20.4  
 ```
 
-imagesloaded image loading library
+imagesloaded图片加载完成库
 
 ```shell
 npm i imagesloaded@5.0.0
 ```
 
-three front-end 3D library
+three前端3D库
 
 ```shell
 npm i three@0.105.0
@@ -64,13 +69,11 @@ npm i three@0.105.0
 
 
 
-## Usage :rocket:
+## 使用 :rocket:
 
-Import and initialize the plugin in your application:
+在您的应用程序中导入插件并初始化它：
 
-
-
-### Contentgrid
+### 滚动内容网格
 
 ```vue
  <div id="app">
@@ -157,7 +160,7 @@ body{
 
 
 
-### Carousel
+### 轮播图
 
 ```vue
  <div id="app">
@@ -243,40 +246,45 @@ body{
 ```
 
 
-## Options :gear:
 
-Here are the available options for the plugin:
+## 选项 :gear:
 
-| Parameter   | Description                           | Type    | Optional Values | Default |
-| :---------- | :------------------------------------ | :------ | :-------------- | :------ |
-| dataArray   | Array to be rendered                  | array   | —               | —       |
-| loading     | Whether to display loading animation  | boolean | —               | true    |
-| pagination  | Whether to display right side buttons | boolean | —               | true    |
-| wheelEvents | Whether to enable mouse wheel events  | boolean | —               | true    |
-| intensity   | animation intensity                   | Number  | 0.1-0.9         | 0.4     |
+以下是插件的可用选项：
 
-## Events
+| 参数        | 说明                 | 类型    | 可选值 | 默认值 |
+| :---------- | :------------------- | :------ | :----- | :----- |
+| dataArray   | 渲染的数组           | array   | —      | —      |
+| loading     | 是否需要加载动画     | boolean | —      | true   |
+| pagination  | 是否显示右侧按钮     | boolean | —      | true   |
+| wheelEvents | 是否开启鼠标滚轮事件 | boolean | —      | true   |
+| intensity   | 动画强度                 | Number  | 0.1-0.9         | 0.4     |
 
-| Event Name | Description                     | Callback Parameters                 |
-| :--------- | :------------------------------ | :---------------------------------- |
-| change     | Triggered when switching slides | Index of the currently active slide |
 
-## Other
 
-### Not using slots
+## 事件
 
-The slidetitle and slidestatus slots have limited customization options.
+| 事件名称 | 说明             | 回调参数               |
+| :------- | :--------------- | :--------------------- |
+| change   | 幻灯片切换时触发 | 目前激活的幻灯片的索引 |
 
-You can define your own text, for example:
+
+
+## 其他
+
+### 不使用插槽
+
+slidetitle和slidestatus插槽自定义内容有限
+
+可自行定义文字，案例：
 
 ```vue
-<div>
-    <div class="meta">Species</div>
+<div >
+    <div class="meta">物种</div>
     <h2 id="slide-title" ref="slidetitle">{{text}}</h2>
 </div>
 ```
 
-Import the dependency and use it in the change callback function:
+引入依赖然后在change回调函数中使用：
 
 ```vue
 import { TweenLite } from "gsap";
@@ -310,3 +318,4 @@ methods: {
     },
   },
 ```
+
