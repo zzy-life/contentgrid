@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.53bf04b8436e0d2fe339cacd72d439bc.css"],"names":[],"mappings":"AACA,KACE,QAAS,CACT,SACF,CACA,aACE,UAAW,CACX,iBAAkB,CAClB,eACF","file":"app.53bf04b8436e0d2fe339cacd72d439bc.css","sourcesContent":["\nbody {\n  margin: 0;\n  padding: 0;\n}\n.contentgrid {\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n}\n\n"]}
